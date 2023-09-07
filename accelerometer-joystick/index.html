@@ -25,7 +25,12 @@
             .then(response => {
                 if (response == 'granted') {
                     window.addEventListener('devicemotion', (e) => {
-                        document.getElementById("message-status").innerHTML = e.acceleration.x
+                        document.getElementById("acc-x").innerHTML = e.acceleration.x
+                        document.getElementById("acc-y").innerHTML = e.acceleration.y
+                        document.getElementById("acc-z").innerHTML = e.acceleration.z
+                        document.getElementById("rot-x").innerHTML = e.acceleration.x
+                        document.getElementById("rot-y").innerHTML = e.acceleration.y
+                        document.getElementById("rot-z").innerHTML = e.acceleration.z
                     })
                 }
             })
@@ -34,10 +39,15 @@
 </script>
 
 <body>
-    <button onclick="requestPermissions()">Request permission</button>
+    <button onclick="requestPermissions()">Start</button>
     <button onclick="sendMessage({direction: 'up', value: 1})">test</button>
     <p id="connection-status">Connecting ...</p>
-    <p>Last command: <span id="message-status"></span></p>
+    <p id="acc-x"></p>
+    <p id="acc-y"></p>
+    <p id="acc-z"></p>
+    <p id="rot-x"></p>
+    <p id="rot-y"></p>
+    <p id="rot-z"></p>
 </body>
 
 </html>
