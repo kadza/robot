@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Robot joystick</title>
+    <meta name="description" content="Robot joystick">
+</head>
+<script>
+    const acl = new Accelerometer({ frequency: 60 });
+    acl.addEventListener("reading", () => {
+        console.log(`Acceleration along the X-axis ${acl.x}`);
+        console.log(`Acceleration along the Y-axis ${acl.y}`);
+        console.log(`Acceleration along the Z-axis ${acl.z}`);
+
+        document.getElementById("message-status").innerHTML(acl.x)
+    });
+
+    acl.start();
+
+    const exampleSocket = new WebSocket("ws://localhost:8765");
+    exampleSocket.onopen = () => {
+        document.getElementById("connection-status").innerHTML = "Connected"
+    };
+
+    exampleSocket.onmessage = (event) => {
+        console.log(event.data)
+        document.getElementById("message-status").innerHTML = event.data
+    }
+
+    function sendMessage(message) {
+        exampleSocket.send(JSON.stringify(message))
+    }
+
+    function requestPermissions() {
+        DeviceMotionEvent.requestPermission()
+            .then(response => {
+                if (response == 'granted') {
+                    window.addEventListener('devicemotion', (e) => {
+                        // do something with e
+                    })
+                }
+            })
+            .catch(console.error)
+    }
+</script>
+
+<body>
+    <button onclick="requestPermissions()">Request permission</button>
+    <button onclick="sendMessage({direction: 'up', value: 1})">test</button>
+    <p id="connection-status">Connecting ...</p>
+    <p>Last command: <span id="message-status"></span></p>
+</body>
+
+</html>

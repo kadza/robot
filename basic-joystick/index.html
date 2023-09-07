@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Robot joystick</title>
+        <meta name="description" content="Robot joystick">
+    </head>
+    <script>
+        const exampleSocket = new WebSocket("ws://localhost:8765");
+        exampleSocket.onopen = () => {
+            document.getElementById("connection-status").innerHTML = "Connected"
+        };
+        exampleSocket.onmessage = (event) => {
+            console.log(event.data)
+            document.getElementById("message-status").innerHTML = event.data
+        }
+
+        function sendMessage(message) {
+            exampleSocket.send(message)
+        }
+    </script>
+    <style>
+        img {
+            width: 15rem;
+            height: 15rem;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+    <body>
+        <div class="container">
+            <img src="./arrow-up.svg" onclick="sendMessage('up');"></img>
+            <div>
+            <img src="./arrow-left.svg" onclick="sendMessage('left');"></img>
+            <img src="./arrow-down.svg" onclick="sendMessage('down');"></img>
+            <img src="./arrow-right.svg" onclick="sendMessage('right');"></img>
+            </div>
+        </div>
+        <button onclick="sendMessage('stop');">STOP</button>
+        <p id="connection-status">Connecting ...</p>
+        <p>Last command: <span id="message-status"></span></p>
+    </body>
+</html>
