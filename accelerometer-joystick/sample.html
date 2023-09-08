@@ -32,7 +32,7 @@
         }
 
         function requestPermissions() {
-            DeviceMotionEvent.requestPermission()
+            DeviceOrientationEvent.requestPermission()
                 .then(response => {
                     if (response == 'granted') {
                         document.getElementById("messsage").innerHTML = "kuku"
