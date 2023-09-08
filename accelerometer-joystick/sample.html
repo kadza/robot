@@ -12,29 +12,29 @@
             ctx.clearRect(0, 0, c.width, c.height);
             ctx.fillStyle = "#FF7777";
             ctx.font = "14px Verdana";
-            ctx.fillText("Alpha: " + Math.Round(event.rotationRate.alpha), 10, 20);
+            ctx.fillText("Alpha: " + Math.Round(event.alpha), 10, 20);
             ctx.beginPath();
             ctx.moveTo(180, 75);
             ctx.lineTo(210, 75);
-            ctx.arc(180, 75, 60, 0, event.rotationRate.alpha * Math.PI / 180);
+            ctx.arc(180, 75, 60, 0, event.alpha * Math.PI / 180);
             ctx.fill();
 
             ctx.fillStyle = "#FF6600";
-            ctx.fillText("Beta: " + Math.round(event.rotationRate.beta), 10, 140);
+            ctx.fillText("Beta: " + Math.round(event.beta), 10, 140);
             ctx.beginPath();
-            ctx.fillRect(180, 150, event.rotationRate.beta, 90);
+            ctx.fillRect(180, 150, event.beta, 90);
 
             ctx.fillStyle = "#FF0000";
-            ctx.fillText("Gamma: " + Math.round(event.rotationRate.gamma), 10, 270);
+            ctx.fillText("Gamma: " + Math.round(event.gamma), 10, 270);
             ctx.beginPath();
-            ctx.fillRect(90, 340, 180, event.rotationRate.gamma);
+            ctx.fillRect(90, 340, 180, event.gamma);
         }
 
         function requestPermissions() {
             DeviceMotionEvent.requestPermission()
                 .then(response => {
                     if (response == 'granted') {
-                        window.addEventListener("devicemotion", deviceOrientationListener);
+                        window.addEventListener("deviceorientation", deviceOrientationListener);
                     }
                 })
                 .catch(console.error)
