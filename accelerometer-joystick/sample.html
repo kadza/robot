@@ -35,6 +35,7 @@
             DeviceMotionEvent.requestPermission()
                 .then(response => {
                     if (response == 'granted') {
+                        document.getElementById("messsage").innerHTML = "kuku"
                         window.addEventListener("deviceorientation", deviceOrientationListener);
                     }
                 })
