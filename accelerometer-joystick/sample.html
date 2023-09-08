@@ -29,11 +29,13 @@
         ctx.fillRect(90, 340, 180, event.gamma);
       }
 
-      if (window.DeviceOrientationEvent) {
-        window.addEventListener("deviceorientation", deviceOrientationListener);
-      } else {
-        alert("Sorry, your browser doesn't support Device Orientation");
-      }
+      DeviceMotionEvent.requestPermission()
+            .then(response => {
+                if (response == 'granted') {
+                    window.addEventListener("devicemotion", deviceOrientationListener);
+                }
+            })
+            .catch(console.error)
     </script>
   </body>
 </html>
