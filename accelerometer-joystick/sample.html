@@ -6,7 +6,7 @@
     </canvas>
     <script>
         function deviceOrientationListener(event) {
-            document.getElementById("messsage").innerHTML = event.alpha
+            document.getElementById("message").innerHTML = event.alpha
             var c = document.getElementById("myCanvas");
             var ctx = c.getContext("2d");
 
@@ -32,12 +32,12 @@
         }
 
         function requestPermissions() {
-            document.getElementById("messsage").innerHTML = "kuku2"
+            document.getElementById("message").innerHTML = "kuku2"
             DeviceOrientationEvent.requestPermission()
                 .then(response => {
-                    document.getElementById("messsage").innerHTML = "kuku1"
+                    document.getElementById("message").innerHTML = "kuku1"
                     if (response == 'granted') {
-                        document.getElementById("messsage").innerHTML = "kuku"
+                        document.getElementById("message").innerHTML = "kuku"
                         window.addEventListener("deviceorientation", deviceOrientationListener);
                     }
                 })
