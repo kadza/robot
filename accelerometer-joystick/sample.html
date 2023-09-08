@@ -34,6 +34,7 @@
         function requestPermissions() {
             DeviceOrientationEvent.requestPermission()
                 .then(response => {
+                    document.getElementById("messsage").innerHTML = "kuku1"
                     if (response == 'granted') {
                         document.getElementById("messsage").innerHTML = "kuku"
                         window.addEventListener("deviceorientation", deviceOrientationListener);
