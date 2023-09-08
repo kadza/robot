@@ -6,6 +6,7 @@
     </canvas>
     <script>
         function deviceOrientationListener(event) {
+            document.getElementById("messsage").innerHTML = event.alpha
             var c = document.getElementById("myCanvas");
             var ctx = c.getContext("2d");
 
@@ -37,10 +38,14 @@
                         window.addEventListener("deviceorientation", deviceOrientationListener);
                     }
                 })
-                .catch(console.error)
+                .catch((e) =>
+                    document.getElementById("error").innerHTML = e.message)
+
         }
     </script>
     <button onclick="requestPermissions()">Start</button>
+    <p id="message"></p>
+    <p id="erorr"></p>
 </body>
 
 </html>
