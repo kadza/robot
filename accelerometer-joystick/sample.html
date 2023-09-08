@@ -32,6 +32,7 @@
         }
 
         function requestPermissions() {
+            document.getElementById("messsage").innerHTML = "kuku2"
             DeviceOrientationEvent.requestPermission()
                 .then(response => {
                     document.getElementById("messsage").innerHTML = "kuku1"
