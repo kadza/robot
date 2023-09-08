@@ -9,10 +9,6 @@
         var c = document.getElementById("myCanvas");
         var ctx = c.getContext("2d");
 
-        ctx.clearRect(0, 0, c.width, c.height);
-        ctx.fillStyle = "#FF7777";
-        ctx.font = "14px Verdana";
-        ctx.fillText("Alpha: ", 10, 20);
         function deviceOrientationListener(event) {
             document.getElementById("message").innerHTML = event.alpha
             var c = document.getElementById("myCanvas");
