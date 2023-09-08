@@ -25,12 +25,9 @@
             .then(response => {
                 if (response == 'granted') {
                     window.addEventListener('devicemotion', (e) => {
-                        document.getElementById("acc-x").innerHTML = e.acceleration.x
-                        document.getElementById("acc-y").innerHTML = e.acceleration.y
-                        document.getElementById("acc-z").innerHTML = e.acceleration.z
-                        document.getElementById("rot-x").innerHTML = e.acceleration.x
-                        document.getElementById("rot-y").innerHTML = e.acceleration.y
-                        document.getElementById("rot-z").innerHTML = e.acceleration.z
+                        document.getElementById("rot-z").innerHTML = e.rotationRate.alpha
+                        document.getElementById("rot-x").innerHTML = e.rotationRate.beta
+                        document.getElementById("rot-y").innerHTML = e.rotationRate.gamma
                     })
                 }
             })
