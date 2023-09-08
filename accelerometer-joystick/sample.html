@@ -8,6 +8,25 @@
 
         var c = document.getElementById("myCanvas");
         var ctx = c.getContext("2d");
+        ctx.clearRect(0, 0, c.width, c.height);
+            ctx.fillStyle = "#FF7777";
+            ctx.font = "14px Verdana";
+            ctx.fillText("Alpha: " + Math.Round(10), 10, 20);
+            ctx.beginPath();
+            ctx.moveTo(180, 75);
+            ctx.lineTo(210, 75);
+            ctx.arc(180, 75, 60, 0, 10 * Math.PI / 180);
+            ctx.fill();
+
+            ctx.fillStyle = "#FF6600";
+            ctx.fillText("Beta: " + Math.round(10), 10, 140);
+            ctx.beginPath();
+            ctx.fillRect(180, 150, event.beta, 90);
+
+            ctx.fillStyle = "#FF0000";
+            ctx.fillText("Gamma: " + Math.round(10), 10, 270);
+            ctx.beginPath();
+            ctx.fillRect(90, 340, 180, 10);
 
         let event = {
             alpha: 0,
@@ -19,6 +38,7 @@
             document.getElementById("alpha").innerHTML = event.alpha
             document.getElementById("beta").innerHTML = event.beta
             document.getElementById("gamma").innerHTML = event.gamma
+
 
             ctx.clearRect(0, 0, c.width, c.height);
             ctx.fillStyle = "#FF7777";
