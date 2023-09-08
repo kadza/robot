@@ -9,7 +9,13 @@
         var c = document.getElementById("myCanvas");
         var ctx = c.getContext("2d");
 
-        function deviceOrientationListener(event) {
+        let event = {
+            alpha: 0,
+            beta: 0,
+            gamma: 0
+        }
+
+        function deviceOrientationListener() {
             document.getElementById("alpha").innerHTML = event.alpha
             document.getElementById("beta").innerHTML = event.beta
             document.getElementById("gamma").innerHTML = event.gamma
@@ -37,6 +43,8 @@
             ctx.fillRect(90, 340, 180, event.gamma);
         }
 
+        setInterval(deviceOrientationListener, 1000)
+
         function requestPermissions() {
             document.getElementById("message").innerHTML = "kuku2"
             DeviceOrientationEvent.requestPermission()
@@ -44,7 +52,7 @@
                     document.getElementById("message").innerHTML = "kuku1"
                     if (response == 'granted') {
                         document.getElementById("message").innerHTML = "kuku"
-                        window.addEventListener("deviceorientation", deviceOrientationListener);
+                        window.addEventListener("deviceorientation", (e) => event = e);
                     }
                 })
                 .catch((e) =>
