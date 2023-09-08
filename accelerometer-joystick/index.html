@@ -21,15 +21,16 @@
     }
 
     let alpha, beta, gamma = 0
+    const pi = Math.PI
 
     function requestPermissions() {
         DeviceMotionEvent.requestPermission()
             .then(response => {
                 if (response == 'granted') {
                     window.addEventListener('devicemotion', (e) => {
-                        alpha = e.rotationRate.alpha
-                        beta = e.rotationRate.beta
-                        gamma = e.rotationRate.gamma
+                        alpha = e.rotationRate.alpha * (180/pi)
+                        beta = e.rotationRate.beta * (180/pi)
+                        gamma = e.rotationRate.gamma * (180/pi)
                     })
                 }
             })
