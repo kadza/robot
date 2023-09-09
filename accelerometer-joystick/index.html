@@ -20,27 +20,27 @@
         exampleSocket.send(JSON.stringify(message))
     }
 
-    let alpha, beta, gamma = 0
-    const pi = Math.PI
+    let event = {
+        alpha: 0,
+        beta: 0,
+        gamma: 0
+    }
 
     function requestPermissions() {
-        DeviceMotionEvent.requestPermission()
+        DeviceOrientationEvent.requestPermission()
             .then(response => {
                 if (response == 'granted') {
-                    window.addEventListener('devicemotion', (e) => {
-                        alpha = e.rotationRate.alpha * (180/pi)
-                        beta = e.rotationRate.beta * (180/pi)
-                        gamma = e.rotationRate.gamma * (180/pi)
-                    })
+                    window.addEventListener("deviceorientation", (e) => event = e);
                 }
             })
-            .catch(console.error)
+            .catch((e) =>
+                document.getElementById("error").innerHTML = e.message)
     }
 
     setInterval(() => {
-        document.getElementById("rot-z").innerHTML = alpha
-        document.getElementById("rot-x").innerHTML = beta
-        document.getElementById("rot-y").innerHTML = gamma
+        document.getElementById("rot-z").innerHTML = event.alpha
+        document.getElementById("rot-x").innerHTML = event.beta
+        document.getElementById("rot-y").innerHTML = event.gamma
     }, 1500)
 </script>
 
@@ -48,9 +48,6 @@
     <button onclick="requestPermissions()">Start</button>
     <button onclick="sendMessage({direction: 'up', value: 1})">test</button>
     <p id="connection-status">Connecting ...</p>
-    <p id="acc-x"></p>
-    <p id="acc-y"></p>
-    <p id="acc-z"></p>
     <p id="rot-x"></p>
     <p id="rot-y"></p>
     <p id="rot-z"></p>
