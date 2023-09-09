@@ -25,9 +25,9 @@
             const response = await DeviceOrientationEvent.requestPermission()
             if (response == 'granted') {
                 window.addEventListener("deviceorientation", (e) => {
-                    document.getElementById("rot-z").innerHTML = event.alpha
-                    document.getElementById("rot-x").innerHTML = event.beta
-                    document.getElementById("rot-y").innerHTML = event.gamma
+                    document.getElementById("rot-z").innerHTML = Math.round(event.alpha)
+                    document.getElementById("rot-x").innerHTML = Math.round(event.beta)
+                    document.getElementById("rot-y").innerHTML = Math.round(event.gamma)
                 });
             }
         } catch (e) {
