@@ -20,28 +20,20 @@
         exampleSocket.send(JSON.stringify(message))
     }
 
-    let event = {
-        alpha: 0,
-        beta: 0,
-        gamma: 0
+    async function requestPermissions() {
+        try {
+            const response = await DeviceOrientationEvent.requestPermission()
+            if (response == 'granted') {
+                window.addEventListener("deviceorientation", (e) => {
+                    document.getElementById("rot-z").innerHTML = event.alpha
+                    document.getElementById("rot-x").innerHTML = event.beta
+                    document.getElementById("rot-y").innerHTML = event.gamma
+                });
+            }
+        } catch (e) {
+            document.getElementById("error").innerHTML = e.message
+        }
     }
-
-    function requestPermissions() {
-        DeviceOrientationEvent.requestPermission()
-            .then(response => {
-                if (response == 'granted') {
-                    window.addEventListener("deviceorientation", (e) => event = e);
-                }
-            })
-            .catch((e) =>
-                document.getElementById("error").innerHTML = e.message)
-    }
-
-    setInterval(() => {
-        document.getElementById("rot-z").innerHTML = event.alpha
-        document.getElementById("rot-x").innerHTML = event.beta
-        document.getElementById("rot-y").innerHTML = event.gamma
-    }, 1500)
 </script>
 
 <body>
