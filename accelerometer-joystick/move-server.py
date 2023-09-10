@@ -16,20 +16,16 @@ async def echo(websocket):
         print(messageJson)
         direction = messageJson["direction"]
         value = messageJson["value"]
-        match direction:
-            case "up":
-                print("up")
-            case "down":
-                print("down")
-            case "left":
-                print("left")
-            case "right":
-                print("right")
-            case "stop":
-                print("stop")
-            case _:
-                await websocket.send("unsupported")
-                print("unsupported")
+        if message == "up":
+            await websocket.send("up")
+        elif message == "down":
+            await websocket.send("down")
+        elif message == "left":
+            await websocket.send("left")
+        elif message == "right":
+            await websocket.send("right")
+        elif message == "stop":
+            await websocket.send("stop")
 
 async def main():
     async with serve(echo, "192.168.0.213", 8765, ssl=ssl_context):
