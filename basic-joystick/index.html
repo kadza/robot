@@ -5,7 +5,7 @@
         <meta name="description" content="Robot joystick">
     </head>
     <script>
-        const exampleSocket = new WebSocket("ws://192.168.0.213:8765");
+        const exampleSocket = new WebSocket("wss://192.168.0.213:8765");
         exampleSocket.onopen = () => {
             document.getElementById("connection-status").innerHTML = "Connected"
         };
