@@ -28,29 +28,29 @@
                     const beta = event.beta
                     const gamma = event.gamma
 
-                    const dirextionAxis = Math.abs(beta) > Math.abs(gamma) ? 'beta' : 'gamma'
+                    const directionAxis = Math.abs(beta) > Math.abs(gamma) ? 'beta' : 'gamma'
 
                     let direction = 'stop'
 
-                    if(directionAxis === 'beta') {
-                        if(beta >= -5 && beta <= 5) {
+                    if (directionAxis === 'beta') {
+                        if (beta >= -5 && beta <= 5) {
                             direction = 'stop'
-                        } else if (beta < -5 ) {
+                        } else if (beta < -5) {
                             direction = 'left'
                         } else {
                             direction = 'right'
                         }
                     } else {
-                        if(gamma >= -5 && gamma <= 5) {
+                        if (gamma >= -5 && gamma <= 5) {
                             direction = 'stop'
-                        } else if (gamma < -5 ) {
+                        } else if (gamma < -5) {
                             direction = 'up'
                         } else {
                             direction = 'down'
-                        } 
+                        }
                     }
 
-                     value = (dirextionAxis === 'beta' ? Math.abs(beta) : Math.abs(gamma) / 100).toFixed(1)
+                    value = (directionAxis === 'beta' ? Math.abs(beta) : Math.abs(gamma) / 100).toFixed(1)
 
                     document.getElementById('values').innerHTML = `${direction} ${value}`
                 });
