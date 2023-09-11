@@ -36,21 +36,21 @@
                         if (beta >= -5 && beta <= 5) {
                             direction = 'stop'
                         } else if (beta < -5) {
-                            direction = 'left'
+                            direction = 'up'
                         } else {
-                            direction = 'right'
+                            direction = 'down'
                         }
                     } else {
                         if (gamma >= -5 && gamma <= 5) {
                             direction = 'stop'
                         } else if (gamma < -5) {
-                            direction = 'up'
+                            direction = 'left'
                         } else {
-                            direction = 'down'
+                            direction = 'right'
                         }
                     }
 
-                    value = (directionAxis === 'beta' ? Math.abs(beta) : Math.abs(gamma) / 100).toFixed(1)
+                    value = ((directionAxis === 'beta' ? Math.abs(beta) : Math.abs(gamma)) / 100).toFixed(1)
 
                     document.getElementById('values').innerHTML = `${direction} ${value}`
                 });
