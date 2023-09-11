@@ -5,6 +5,9 @@ from websockets.server import serve
 import json
 import ssl
 import pathlib
+import gpiozero
+
+robot = gpiozero.Robot(left=(17,18), right=(27,22))
 
 ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
 localhost_pem = pathlib.Path(__file__).with_name("cert.pem")
@@ -16,16 +19,16 @@ async def echo(websocket):
         print(messageJson)
         direction = messageJson["direction"]
         value = messageJson["value"]
-        if message == "up":
-            await websocket.send("up")
-        elif message == "down":
-            await websocket.send("down")
-        elif message == "left":
-            await websocket.send("left")
-        elif message == "right":
-            await websocket.send("right")
-        elif message == "stop":
-            await websocket.send("stop")
+        if direction == "up":
+            robot.forward(value)
+        elif direction == "down":
+            robot.backward(value)
+        elif direction == "left":
+            robot.left(value)
+        elif direction == "right":
+            robot.right(value)
+        elif direction == "stop":
+            robot.stop()
 
 async def main():
     async with serve(echo, "192.168.0.213", 8765, ssl=ssl_context):
