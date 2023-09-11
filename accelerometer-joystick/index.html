@@ -3,17 +3,17 @@
 
 <head>
     <title>Robot joystick</title>
-    <meta name="description" content="Robot joystick">
+    <meta name='description' content='Robot joystick'>
 </head>
 <script>
-    const exampleSocket = new WebSocket("wss://192.168.0.213:8765");
+    const exampleSocket = new WebSocket('wss://192.168.0.213:8765');
     exampleSocket.onopen = () => {
-        document.getElementById("connection-status").innerHTML = "Connected"
+        document.getElementById('connection-status').innerHTML = 'Connected'
     };
 
     exampleSocket.onmessage = (event) => {
         console.log(event.data)
-        document.getElementById("message-status").innerHTML = event.data
+        document.getElementById('message-status').innerHTML = event.data
     }
 
     function sendMessage(message) {
@@ -24,25 +24,48 @@
         try {
             const response = await DeviceOrientationEvent.requestPermission()
             if (response == 'granted') {
-                window.addEventListener("deviceorientation", (e) => {
-                    document.getElementById("rot-z").innerHTML = Math.round(event.alpha)
-                    document.getElementById("rot-x").innerHTML = Math.round(event.beta)
-                    document.getElementById("rot-y").innerHTML = Math.round(event.gamma)
+                window.addEventListener('deviceorientation', (event) => {
+                    const beta = event.beta
+                    const gamma = event.gamma
+
+                    const dirextionAxis = Math.abs(beta) > Math.abs(gamma) ? 'beta' : 'gamma'
+
+                    let direction = 'stop'
+
+                    if(directionAxis === 'beta') {
+                        if(beta >= -5 && beta <= 5) {
+                            direction = 'stop'
+                        } else if (beta < -5 ) {
+                            direction = 'left'
+                        } else {
+                            direction = 'right'
+                        }
+                    } else {
+                        if(gamma >= -5 && gamma <= 5) {
+                            direction = 'stop'
+                        } else if (gamma < -5 ) {
+                            direction = 'up'
+                        } else {
+                            direction = 'down'
+                        } 
+                    }
+
+                     value = (dirextionAxis === 'beta' ? Math.abs(beta) : Math.abs(gamma) / 100).toFixed(1)
+
+                    document.getElementById('values').innerHTML = `${direction} ${value}`
                 });
             }
         } catch (e) {
-            document.getElementById("error").innerHTML = e.message
+            document.getElementById('error').innerHTML = e.message
         }
     }
 </script>
 
 <body>
-    <button onclick="requestPermissions()">Start</button>
-    <button onclick="sendMessage({direction: 'up', value: 1})">test</button>
-    <p id="connection-status">Connecting ...</p>
-    <p id="rot-x"></p>
-    <p id="rot-y"></p>
-    <p id="rot-z"></p>
+    <button onclick='requestPermissions()'>Start</button>
+    <button onclick='sendMessage({direction: "up", value: 1})'>test</button>
+    <p id='connection-status'>Connecting ...</p>
+    <p id='values'></p>
 </body>
 
 </html>
