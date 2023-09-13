@@ -18,7 +18,7 @@ async def echo(websocket):
         messageJson = json.loads(message)
         print(messageJson)
         direction = messageJson["direction"]
-        value = messageJson["value"]
+        value = float(messageJson["value"])
         if direction == "up":
             robot.forward(value)
         elif direction == "down":
