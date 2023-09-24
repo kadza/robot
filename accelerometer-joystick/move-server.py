@@ -17,6 +17,7 @@ localhost_pem = pathlib.Path(__file__).with_name("cert.pem")
 ssl_context.load_cert_chain(localhost_pem)
 global direction
 global distance
+distance = 100
 
 def get_Distance(trigger, echo):
     trigger.on()
@@ -42,6 +43,7 @@ def prevent_crash():
     global direction
     global distance
     distance = get_Distance(trigger, echo)
+    print(distance)
     if distance <= min_distance and direction == "up" :
         robot.stop()
 
