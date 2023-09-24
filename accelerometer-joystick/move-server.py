@@ -52,10 +52,10 @@ async def echo(websocket):
         messageJson = json.loads(message)
         print(messageJson)
         global direction
-        global distance
         direction = messageJson["direction"]
         value = float(messageJson["value"])
         if direction == "up":
+            global distance
             if distance > min_distance:
                 robot.forward(value)
         elif direction == "down":
@@ -78,5 +78,5 @@ async def main():
 
     while True:
         prevent_crash()
-        
+
 asyncio.run(main())
