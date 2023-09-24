@@ -6,21 +6,58 @@ import json
 import ssl
 import pathlib
 import gpiozero
+import time
 
-robot = gpiozero.Robot(left=(17,18), right=(27,22))
-
+min_distance = 20
+robot = gpiozero.Robot(left=(17, 18), right=(27, 22))
+trigger = gpiozero.OutputDevice(23)
+echo = gpiozero.DigitalInputDevice(24)
 ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
 localhost_pem = pathlib.Path(__file__).with_name("cert.pem")
 ssl_context.load_cert_chain(localhost_pem)
+global direction
+global distance
+
+def get_Distance(trigger, echo):
+    trigger.on()
+    time.sleep(0.00001)
+    trigger.off()
+
+    while echo.is_active == False:
+        pulse_start = time.time()
+
+    while echo.is_active == True:
+        pulse_end = time.time()
+
+    pulse_duration = pulse_end - pulse_start
+
+    distance = 34300 * (pulse_duration/2)
+
+    round_distance = round(distance, 2)
+
+    return (round_distance)
+
+
+async def prevent_crash():
+    global direction
+    global distance
+    distance = get_Distance(trigger, echo)
+    if distance <= min_distance and direction == "up" :
+        robot.stop()
+
+    time.sleep(1000)
 
 async def echo(websocket):
     async for message in websocket:
         messageJson = json.loads(message)
         print(messageJson)
+        global direction
+        global distance
         direction = messageJson["direction"]
         value = float(messageJson["value"])
         if direction == "up":
-            robot.forward(value)
+            if distance > min_distance:
+                robot.forward(value)
         elif direction == "down":
             robot.backward(value)
         elif direction == "left":
@@ -30,8 +67,12 @@ async def echo(websocket):
         elif direction == "stop":
             robot.stop()
 
+
 async def main():
-    async with serve(echo, "192.168.0.213", 8765, ssl=ssl_context):
-        await asyncio.Future()
+    task1 = asyncio.create_task(serve(echo, "192.168.0.213", 8765, ssl=ssl_context))
+    task2 = asyncio.current_task(prevent_crash())
+
+    await task1
+    await task2
 
 asyncio.run(main())
