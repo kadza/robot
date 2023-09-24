@@ -47,6 +47,8 @@ async def prevent_crash():
 
     time.sleep(1000)
 
+    await asyncio.Future()
+
 async def echo(websocket):
     async for message in websocket:
         messageJson = json.loads(message)
@@ -67,12 +69,12 @@ async def echo(websocket):
         elif direction == "stop":
             robot.stop()
 
-async def serve():
+async def start_server():
     async with serve(echo, "192.168.0.213", 8765, ssl=ssl_context):
         await asyncio.Future()
 
 async def main():
-    task1 = asyncio.create_task(serve())
+    task1 = asyncio.create_task(start_server())
     task2 = asyncio.current_task(prevent_crash())
 
     await task1
