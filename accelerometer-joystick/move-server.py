@@ -67,9 +67,12 @@ async def echo(websocket):
         elif direction == "stop":
             robot.stop()
 
+async def serve():
+    async with serve(echo, "192.168.0.213", 8765, ssl=ssl_context):
+        await asyncio.Future()
 
 async def main():
-    task1 = asyncio.create_task(serve(echo, "192.168.0.213", 8765, ssl=ssl_context))
+    task1 = asyncio.create_task(serve())
     task2 = asyncio.current_task(prevent_crash())
 
     await task1
