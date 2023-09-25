@@ -10,8 +10,8 @@ import time
 
 min_distance = 20
 robot = gpiozero.Robot(left=(17, 18), right=(27, 22))
-trigger = gpiozero.OutputDevice(23)
-echo = gpiozero.DigitalInputDevice(24)
+triggerPin = gpiozero.OutputDevice(23)
+echoPin = gpiozero.DigitalInputDevice(24)
 ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
 localhost_pem = pathlib.Path(__file__).with_name("cert.pem")
 ssl_context.load_cert_chain(localhost_pem)
@@ -43,7 +43,7 @@ async def prevent_crash():
     while True:
         global direction
         global distance
-        distance = get_Distance(trigger, echo)
+        distance = get_Distance(triggerPin, echoPin)
         print(distance)
         if distance <= min_distance and direction == "up" :
             robot.stop()
