@@ -40,14 +40,15 @@ def get_Distance(trigger, echo):
 
 
 async def prevent_crash():
-    global direction
-    global distance
-    distance = get_Distance(trigger, echo)
-    print(distance)
-    if distance <= min_distance and direction == "up" :
-        robot.stop()
+    while True:
+        global direction
+        global distance
+        distance = get_Distance(trigger, echo)
+        print(distance)
+        if distance <= min_distance and direction == "up" :
+            robot.stop()
 
-    await asyncio.sleep(1000)
+        await asyncio.sleep(1000)
 
 async def echo(websocket):
     async for message in websocket:
