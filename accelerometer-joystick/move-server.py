@@ -8,7 +8,7 @@ import pathlib
 import gpiozero
 import time
 
-min_distance = 20
+min_distance = 30
 robot = gpiozero.Robot(left=(17, 18), right=(27, 22))
 triggerPin = gpiozero.OutputDevice(23)
 echoPin = gpiozero.DigitalInputDevice(24)
