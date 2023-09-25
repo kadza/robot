@@ -76,7 +76,7 @@ async def start_server():
 
 async def main():
     task1 = asyncio.create_task(start_server())
-    task2 = asyncio.current_task(prevent_crash())
+    task2 = asyncio.create_task(prevent_crash())
 
     await task1
     await task2
