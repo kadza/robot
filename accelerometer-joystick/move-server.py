@@ -45,8 +45,8 @@ async def prevent_crash():
         global direction
         global distance
         distance = get_Distance(triggerPin, echoPin)
-        print("prevent_crash distance: " + distance)
-        print("prevent_crash direction: " + direction)
+        print("prevent_crash distance: " + str(distance))
+        print("prevent_crash direction: " + str(direction))
         if distance <= min_distance and direction == "up":
             print("stopped")
             robot.stop()
@@ -58,8 +58,8 @@ async def echo(websocket):
         messageJson = json.loads(message)
         global direction
         direction = messageJson["direction"]
-        print("echo message: " + messageJson)
-        print("echo direction: " + direction)
+        print("echo message: " + str(messageJson))
+        print("echo direction: " + str(direction))
         value = float(messageJson["value"])
         if direction == "up":
             global distance
