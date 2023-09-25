@@ -48,7 +48,7 @@ async def prevent_crash():
         if distance <= min_distance and direction == "up" :
             robot.stop()
 
-        await asyncio.sleep(1000)
+        await asyncio.sleep(1)
 
 async def echo(websocket):
     async for message in websocket:
@@ -75,6 +75,5 @@ async def start_server():
         await asyncio.Future()
 
 loop = asyncio.get_event_loop()
-task = loop.create_task(start_server())
 task1 = loop.create_task(prevent_crash())
 
