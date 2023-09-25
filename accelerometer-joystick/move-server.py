@@ -75,10 +75,8 @@ async def start_server():
         await asyncio.Future()
 
 async def main():
-    task1 = asyncio.create_task(start_server())
-    task2 = asyncio.create_task(prevent_crash())
-
-    await task1
-    await task2
+    loop = asyncio.get_event_loop()
+    task = loop.create_task(start_server())
+    task1 = loop.create_task(prevent_crash())
 
 asyncio.run(main())
