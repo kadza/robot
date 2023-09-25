@@ -39,7 +39,7 @@ def get_Distance(trigger, echo):
     return (round_distance)
 
 
-def prevent_crash():
+async def prevent_crash():
     global direction
     global distance
     distance = get_Distance(trigger, echo)
@@ -47,7 +47,7 @@ def prevent_crash():
     if distance <= min_distance and direction == "up" :
         robot.stop()
 
-    time.sleep(1000)
+    await asyncio.sleep(1000)
 
 async def echo(websocket):
     async for message in websocket:
@@ -75,10 +75,9 @@ async def start_server():
 
 async def main():
     task1 = asyncio.create_task(start_server())
+    task2 = asyncio.current_task(prevent_crash())
 
     await task1
-
-    while True:
-        prevent_crash()
+    await task2
 
 asyncio.run(main())
