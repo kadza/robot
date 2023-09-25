@@ -45,7 +45,9 @@ async def prevent_crash():
         global distance
         distance = get_Distance(triggerPin, echoPin)
         print(distance)
-        if distance <= min_distance and direction == "up" :
+        print(direction)
+        if distance <= min_distance and direction == "up":
+            print("stop")
             robot.stop()
 
         await asyncio.sleep(1)
