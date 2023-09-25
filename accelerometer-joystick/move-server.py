@@ -48,7 +48,7 @@ async def prevent_crash():
         print(distance)
         print(direction)
         if distance <= min_distance and direction == "up":
-            print("stop")
+            print("stopped")
             robot.stop()
 
         await asyncio.sleep(1)
@@ -58,6 +58,7 @@ async def echo(websocket):
         messageJson = json.loads(message)
         print(messageJson)
         global direction
+        print(direction)
         direction = messageJson["direction"]
         value = float(messageJson["value"])
         if direction == "up":
