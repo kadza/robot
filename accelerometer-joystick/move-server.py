@@ -74,9 +74,7 @@ async def start_server():
     async with serve(echo, "192.168.0.213", 8765, ssl=ssl_context):
         await asyncio.Future()
 
-async def main():
-    loop = asyncio.get_event_loop()
-    task = loop.create_task(start_server())
-    task1 = loop.create_task(prevent_crash())
+loop = asyncio.get_event_loop()
+task = loop.create_task(start_server())
+task1 = loop.create_task(prevent_crash())
 
-asyncio.run(main())
