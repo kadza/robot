@@ -77,10 +77,20 @@ async def echo(websocket):
 async def start_server():
     async with serve(echo, "192.168.0.213", 8765, ssl=ssl_context):
         await asyncio.Future()
+        
+async def test():
+    i = 0
+    while True:
+        print(i)
+        i = i + 1
+        await asyncio.sleep(1)
 
-loop = asyncio.get_event_loop()
-task = loop.create_task(start_server())
-task1 = loop.create_task(prevent_crash())
-loop.run_until_complete(task)
-loop.run_until_complete(task1)
+async def main():
+    prevent_crash_task = asyncio.create_task(prevent_crash())
+    websocket_server_task = asyncio.create_task(start_server())
+
+    await prevent_crash_task
+    await websocket_server_task
+
+asyncio.run(main())
 
