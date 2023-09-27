@@ -9,8 +9,8 @@ from json import loads
 
 @dataclass
 class Message():
-    key: str
-    value: str
+    direction: str
+    speed: int
 
 
 class MessageHandler(Protocol):
@@ -36,10 +36,10 @@ class WifiRemoteController:
         async def echo(websocket):
             async for message in websocket:
                 messageJson = loads(message)
-                key = messageJson["key"]
-                value = messageJson["value"]
+                direction = messageJson["direction"]
+                speed = messageJson["speed"]
                 self.messageHandler.handleMessage(
-                    message=Message(key=key, value=value))
+                    message=Message(direction, speed))
 
         async with serve(echo, self.ipAddress, self.port, ssl=self.ssl_context):
             await Future()

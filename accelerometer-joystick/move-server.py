@@ -29,18 +29,18 @@ class DirectionMessageHandler:
         self.robot = robot
 
     def handleMessage(self, message: Message):
-        if (message.key == "direction"):
-            value = int(message.value)
+            direction = message.direction
+            speed = message.speed
             if direction == "up":
                 global distance
                 if distance > min_distance:
-                    self.robot.forward(value)
+                    self.robot.forward(speed)
             elif direction == "down":
-                self.robot.backward(value)
+                self.robot.backward(speed)
             elif direction == "left":
-                self.robot.left(value)
+                self.robot.left(speed)
             elif direction == "right":
-                self.robot.right(value)
+                self.robot.right(speed)
             elif direction == "stop":
                 self.robot.stop()
 

@@ -60,7 +60,7 @@
                     if(direction !== previousDirection && value !== previousValue) {
                         previousDirection = direction
                         previousValue = value
-                        sendMessage({direction, value})
+                        sendMessage({direction, "speed": value})
                     }
                 });
             }
