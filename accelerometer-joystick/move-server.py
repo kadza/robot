@@ -14,7 +14,7 @@ async def prevent_crash(robot: Robot):
     while True:
         global direction
         global distance
-        distance = robot.get_Distance()
+        distance = robot.get_distance()
         print("prevent_crash distance: " + str(distance))
         print("prevent_crash direction: " + str(direction))
         if distance <= min_distance and direction == "up":
@@ -30,7 +30,7 @@ class DirectionMessageHandler:
 
     def handleMessage(self, message: Message):
         if (message.key == "direction"):
-            value = float(message.value)
+            value = int(message.value)
             if direction == "up":
                 global distance
                 if distance > min_distance:
@@ -50,7 +50,7 @@ async def main():
     remoteController = WifiRemoteController(
         messageHandler=DirectionMessageHandler(robot=robot), ipAddress="192.168.0.213", port=8765)
     
-    prevent_crash_task = create_task(prevent_crash())
+    prevent_crash_task = create_task(prevent_crash(robot=robot))
     websocket_server_task = create_task(remoteController.start())
 
     await prevent_crash_task
