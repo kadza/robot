@@ -37,7 +37,7 @@ class WifiRemoteController:
             async for message in websocket:
                 messageJson = loads(message)
                 direction = messageJson["direction"]
-                speed = messageJson["speed"]
+                speed = int(messageJson["speed"])
                 self.messageHandler.handleMessage(
                     message=Message(direction, speed))
 
