@@ -10,7 +10,7 @@ from json import loads
 @dataclass
 class Message():
     direction: str
-    speed: int
+    speed: float
 
 
 class MessageHandler(Protocol):
@@ -37,7 +37,7 @@ class WifiRemoteController:
             async for message in websocket:
                 messageJson = loads(message)
                 direction = messageJson["direction"]
-                speed = int(messageJson["speed"])
+                speed = float(messageJson["speed"])
                 self.messageHandler.handleMessage(
                     message=Message(direction, speed))
 

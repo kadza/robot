@@ -6,16 +6,16 @@ class Robot(Protocol):
     def get_distance(self) -> float:
         pass
 
-    def forward(self, speed: int) -> None:
+    def forward(self, speed: float) -> None:
         pass
 
-    def backward(self, speed: int) -> None:
+    def backward(self, speed: float) -> None:
         pass
 
-    def left(self, speed: int) -> None:   
+    def left(self, speed: float) -> None:   
         pass
 
-    def right(self, speed: int) -> None:
+    def right(self, speed: float) -> None:
         pass
 
     def stop(self) -> None:
@@ -57,16 +57,16 @@ class PiRobot:
 
         return (round_distance)
     
-    def forward(self, speed: int) -> None:
+    def forward(self, speed: float) -> None:
         self.robot.forward(speed)
 
-    def backward(self, speed: int) -> None:
+    def backward(self, speed: float) -> None:
         self.robot.backward(speed)
 
-    def left(self, speed: int) -> None:
+    def left(self, speed: float) -> None:
         self.robot.left(speed)
 
-    def right(self, speed: int) -> None:
+    def right(self, speed: float) -> None:
         self.robot.right(speed)
 
     def stop(self) -> None:
