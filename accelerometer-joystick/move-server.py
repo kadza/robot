@@ -17,7 +17,7 @@ async def prevent_crash(robot: Robot):
         distance = robot.get_distance()
         print("prevent_crash distance: " + str(distance))
         print("prevent_crash direction: " + str(direction))
-        if distance <= min_distance and direction == "up":
+        if distance <= min_distance and direction == "left":
             print("stopped")
             robot.stop()
 
