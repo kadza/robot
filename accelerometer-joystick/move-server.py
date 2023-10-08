@@ -29,27 +29,27 @@ class DirectionMessageHandler:
         self.robot = robot
 
     def handleMessage(self, message: Message):
-            direction = message.direction
-            speed = message.speed
-            if direction == "up":
-                global distance
-                if distance > min_distance:
-                    self.robot.forward(speed)
-            elif direction == "down":
-                self.robot.backward(speed)
-            elif direction == "left":
-                self.robot.left(speed)
-            elif direction == "right":
-                self.robot.right(speed)
-            elif direction == "stop":
-                self.robot.stop()
+        direction = message.direction
+        speed = message.speed
+        if direction == "up":
+            global distance
+            if distance > min_distance:
+                self.robot.forward(speed)
+        elif direction == "down":
+            self.robot.backward(speed)
+        elif direction == "left":
+            self.robot.left(speed)
+        elif direction == "right":
+            self.robot.right(speed)
+        elif direction == "stop":
+            self.robot.stop()
 
 
 async def main():
     robot = PiRobot(23, 24, (17, 18), (27, 22))
     remoteController = WifiRemoteController(
-        messageHandler=DirectionMessageHandler(robot=robot), ipAddress="192.168.0.213", port=8765)
-    
+        messageHandler = DirectionMessageHandler(robot=robot), ipAddress="192.168.0.213", port=8765)
+
     prevent_crash_task = create_task(prevent_crash(robot=robot))
     websocket_server_task = create_task(remoteController.start())
 

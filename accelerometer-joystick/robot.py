@@ -1,10 +1,11 @@
 from typing import Protocol
-import gpiozero
+import gpiozero #type: ignore
 import time
 
 class Robot(Protocol):
     def get_distance(self) -> float:
-        pass
+        #is it the bes option
+        return 0
 
     def forward(self, speed: float) -> None:
         pass
@@ -58,16 +59,17 @@ class PiRobot:
         return (round_distance)
     
     def forward(self, speed: float) -> None:
-        self.robot.forward(speed)
+        #it's float not int according to docs https://gpiozero.readthedocs.io/en/stable/api_boards.html?highlight=robot#robot
+        self.robot.forward(speed)  # type: ignore
 
     def backward(self, speed: float) -> None:
-        self.robot.backward(speed)
+        self.robot.backward(speed)  # type: ignore
 
     def left(self, speed: float) -> None:
-        self.robot.left(speed)
+        self.robot.left(speed)  # type: ignore
 
     def right(self, speed: float) -> None:
-        self.robot.right(speed)
+        self.robot.right(speed)  # type: ignore
 
     def stop(self) -> None:
         self.robot.stop()

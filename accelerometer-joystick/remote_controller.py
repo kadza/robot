@@ -1,12 +1,12 @@
 from typing import Protocol
 from dataclasses import dataclass
 from asyncio import Future
-from websockets.server import serve
+from websockets.server import serve, WebSocketServerProtocol
 from pathlib import Path
 from ssl import SSLContext, PROTOCOL_TLS_SERVER
 from json import loads
 
-
+# should it be generic?
 @dataclass
 class Message():
     direction: str
@@ -33,7 +33,7 @@ class WifiRemoteController:
         self.ssl_context.load_cert_chain(localhost_pem)
 
     async def start(self):
-        async def echo(websocket):
+        async def websocketHandler(websocket: WebSocketServerProtocol):
             async for message in websocket:
                 messageJson = loads(message)
                 direction = messageJson["direction"]
@@ -41,5 +41,5 @@ class WifiRemoteController:
                 self.messageHandler.handleMessage(
                     message=Message(direction, speed))
 
-        async with serve(echo, self.ipAddress, self.port, ssl=self.ssl_context):
+        async with serve(websocketHandler, self.ipAddress, self.port, ssl=self.ssl_context):
             await Future()
