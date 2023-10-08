@@ -6,7 +6,7 @@ global direction
 global distance
 
 direction = "start"
-min_distance = 30
+min_distance = 50
 distance = 100
 
 
