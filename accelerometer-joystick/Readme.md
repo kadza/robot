@@ -11,3 +11,6 @@ https://python.plainenglish.io/python-simple-http-server-with-ssl-certificate-en
 Safari WebSocket connection to 'wss://192.168.0.213:8765/' failed: The certificate for this server is invalid. You might be connecting to a server that is pretending to be “192.168.0.213” which could put your confidential information at risk. Didn't solve it
 
 Chrome ok
+
+TODO:
+* functions names with underscore

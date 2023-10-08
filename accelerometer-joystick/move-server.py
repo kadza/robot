@@ -29,6 +29,7 @@ class DirectionMessageHandler:
         self.robot = robot
 
     def handleMessage(self, message: Message):
+        global direction
         direction = message.direction
         speed = message.speed
         if direction == "up":
@@ -48,9 +49,9 @@ class DirectionMessageHandler:
 async def main():
     robot = PiRobot(23, 24, (17, 18), (27, 22))
     remoteController = WifiRemoteController(
-        messageHandler = DirectionMessageHandler(robot=robot), ipAddress="192.168.0.213", port=8765)
+        messageHandler = DirectionMessageHandler(robot), ipAddress="192.168.0.213", port=8765)
 
-    prevent_crash_task = create_task(prevent_crash(robot=robot))
+    prevent_crash_task = create_task(prevent_crash(robot))
     websocket_server_task = create_task(remoteController.start())
 
     await prevent_crash_task
