@@ -76,6 +76,8 @@ class PiRobot:
 
 
 class PiRobotWithSteeringMotor:
+    steeringMotorPosition = 0
+
     def __init__(
         self,
         distanceTriggerPinNumber: int,
@@ -118,10 +120,14 @@ class PiRobotWithSteeringMotor:
         self.rightMotor.backward(speed)  # type: ignore
 
     def left(self, speed: float) -> None:
-        self.leftMotor.forward(speed)  # type: ignore
+        if self.steeringMotorPosition < 2:
+            self.leftMotor.forward(speed)  # type: ignore
+            self.steeringMotorPosition = self.steeringMotorPosition + 1
 
     def right(self, speed: float) -> None:
-        self.leftMotor.backward(speed)  # type: ignore
+        if self.steeringMotorPosition > -2
+            self.leftMotor.backward(speed)  # type: ignore
+            self.steeringMotorPosition = self.steeringMotorPosition - 1
 
     def stop(self) -> None:
         self.rightMotor.stop()
