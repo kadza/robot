@@ -125,7 +125,7 @@ class PiRobotWithSteeringMotor:
             self.steeringMotorPosition = self.steeringMotorPosition + 1
 
     def right(self, speed: float) -> None:
-        if self.steeringMotorPosition > -2
+        if self.steeringMotorPosition > -2:
             self.leftMotor.backward(speed)  # type: ignore
             self.steeringMotorPosition = self.steeringMotorPosition - 1
 
