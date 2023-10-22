@@ -87,8 +87,8 @@ class PiRobotWithSteeringMotor:
             distanceTriggerPinNumber)
         self.distanceEchoPin = gpiozero.DigitalInputDevice(
             distanceEchoPinNumber)
-        self.leftMotor = gpiozero.Motor(leftMotorPinNumbers)
-        self.rightMotor = gpiozero.Motor(rightMotorPinNumbers)
+        self.leftMotor = gpiozero.Motor(leftMotorPinNumbers[0], leftMotorPinNumbers[1])
+        self.rightMotor = gpiozero.Motor(rightMotorPinNumbers[0], rightMotorPinNumbers[1])
 
     def get_distance(self) -> float:
         pulse_start = 0
