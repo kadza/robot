@@ -120,11 +120,13 @@ class PiRobotWithSteeringMotor:
         self.rightMotor.backward(speed)  # type: ignore
 
     def left(self, speed: float) -> None:
+        print("steering motor poisiton" + str(self.steeringMotorPosition))
         if self.steeringMotorPosition < 2:
             self.leftMotor.forward(speed)  # type: ignore
             self.steeringMotorPosition = self.steeringMotorPosition + 1
 
     def right(self, speed: float) -> None:
+        print("steering motor poisiton" + str(self.steeringMotorPosition))
         if self.steeringMotorPosition > -2:
             self.leftMotor.backward(speed)  # type: ignore
             self.steeringMotorPosition = self.steeringMotorPosition - 1
