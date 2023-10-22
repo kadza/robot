@@ -1,5 +1,5 @@
 from remote_controller import Message, WifiRemoteController
-from robot import Robot, PiRobot
+from robot import Robot, PiRobotWithSteeringMotor
 from asyncio import create_task, sleep, run
 
 global direction
@@ -47,7 +47,7 @@ class DirectionMessageHandler:
 
 
 async def main():
-    robot = PiRobot(23, 24, (17, 18), (27, 22))
+    robot = PiRobotWithSteeringMotor(23, 24, (17, 18), (27, 22))
     remoteController = WifiRemoteController(
         messageHandler = DirectionMessageHandler(robot), ipAddress="192.168.0.213", port=8765)
 
