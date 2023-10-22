@@ -121,7 +121,7 @@ class PiRobotWithSteeringMotor:
         self.leftMotor.forward(speed)  # type: ignore
 
     def right(self, speed: float) -> None:
-        self.rightMotor.backward(speed)  # type: ignore
+        self.leftMotor.backward(speed)  # type: ignore
 
     def stop(self) -> None:
         self.rightMotor.stop()
