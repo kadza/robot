@@ -1,7 +1,12 @@
 #!/usr/bin/env python
 
 import asyncio
+from dotenv import load_dotenv
+import os
 from websockets.server import serve
+
+load_dotenv()
+
 
 async def echo(websocket):
     async for message in websocket:
@@ -16,8 +21,9 @@ async def echo(websocket):
         elif message == "stop":
             await websocket.send("stop")
 
+
 async def main():
-    async with serve(echo, "0.0.0.0", 8765):
+    async with serve(echo, os.environ['SOCKET_SERVER_ADDRESS'], int(os.environ['SOCKET_SERVER_PORT'])):
         await asyncio.Future()  # run forever
 
 asyncio.run(main())
