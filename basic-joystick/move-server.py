@@ -37,6 +37,7 @@ class DirectionMessageHandler:
         self.robot = robot
 
     def handleMessage(self, message: Message):
+        print(message)
         global direction
         direction = message.direction
         speed = message.speed
