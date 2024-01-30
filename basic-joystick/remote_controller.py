@@ -34,6 +34,7 @@ class WifiRemoteController:
     async def start(self):
         async def websocketHandler(websocket: WebSocketServerProtocol):
             async for message in websocket:
+                print(message)
                 messageJson = loads(message)
                 direction = messageJson["direction"]
                 speed = float(messageJson["speed"])
