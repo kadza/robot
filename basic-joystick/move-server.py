@@ -20,6 +20,8 @@ async def echo(websocket):
             await websocket.send("right")
         elif message == "stop":
             await websocket.send("stop")
+        else:
+            await websocket.send(message)
 
 
 async def main():

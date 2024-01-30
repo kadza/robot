@@ -38,6 +38,7 @@
         <div id="root">
             <div id="status">
                 <p id="connection-status">Connecting</p>
+                <p id="message-status">No message</p>
             </div>
             <div id="joy-container">
                 <div id="joy"></div>
@@ -58,5 +59,9 @@
         function sendMessage(message) {
             exampleSocket.send(message);
         }
+
+        setInterval(() => {
+            sendMessage(joy.GetDir());
+        }, 1000);
     </script>
 </html>
