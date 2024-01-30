@@ -1,48 +1,67 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
     <head>
         <title>Robot joystick</title>
-        <meta name="description" content="Robot joystick">
+        <meta name="description" content="Robot joystick" />
+        <link rel="stylesheet" href="https://raw.githubusercontent.com/elad2412/the-new-css-reset/main/css/reset.css" />
     </head>
-    <script>
-        const exampleSocket = new WebSocket("wss://192.168.0.213:8765");
-        exampleSocket.onopen = () => {
-            document.getElementById("connection-status").innerHTML = "Connected"
-        };
-        exampleSocket.onmessage = (event) => {
-            console.log(event.data)
-            document.getElementById("message-status").innerHTML = event.data
-        }
-
-        function sendMessage(message) {
-            exampleSocket.send(message)
-        }
-    </script>
     <style>
-        img {
-            width: 15rem;
-            height: 15rem;
+        body,
+        html {
+            margin: 0;
+            padding: 0;
         }
-
-        .container {
+        * {
+            box-sizing: border-box;
+        }
+        #root {
+            height: 99vh;
             display: flex;
-            width: 100%;
-            height: 100%;
             flex-direction: column;
-            align-items: center;
+            justify-content: space-between;
+        }
+        #status {
+            font-size: 2rem;
+        }
+        #joy-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+        #joy {
+            width: 30rem;
+            height: 30rem;
         }
     </style>
+    <script src="joy.js"></script>
+
     <body>
-        <div class="container">
-            <img src="./arrow-up.svg" onclick="sendMessage('up');"></img>
-            <div>
-            <img src="./arrow-left.svg" onclick="sendMessage('left');"></img>
-            <img src="./arrow-down.svg" onclick="sendMessage('down');"></img>
-            <img src="./arrow-right.svg" onclick="sendMessage('right');"></img>
+        <div id="root">
+            <div id="status">
+                <p id="connection-status">Connecting</p>
+                <p id="message-status">No message</p>
+            </div>
+            <div id="joy-container">
+                <div id="joy"></div>
             </div>
         </div>
-        <button onclick="sendMessage('stop');">STOP</button>
-        <p id="connection-status">Connecting ...</p>
-        <p>Last command: <span id="message-status"></span></p>
     </body>
+    <script>
+        var joy = new JoyStick("joy");
+        const exampleSocket = new WebSocket("SOCKET_SERVER_PROTOCOL://SOCKET_SERVER_ADDRESS_CLIENT:SOCKET_SERVER_PORT");
+        exampleSocket.onopen = () => {
+            document.getElementById("connection-status").innerHTML = "Connected";
+        };
+        exampleSocket.onmessage = (event) => {
+            console.log(event.data);
+            document.getElementById("message-status").innerHTML = event.data;
+        };
+
+        function sendMessage(message) {
+            exampleSocket.send(message);
+        }
+
+        setInterval(() => {
+            sendMessage(JSON.stringify({ direction: joy.GetDir(), speed: 0.5 }));
+        }, 1000);
+    </script>
 </html>
