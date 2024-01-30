@@ -61,7 +61,7 @@
         }
 
         setInterval(() => {
-            sendMessage({ direction: joy.GetDir(), speed: 0.5 });
+            sendMessage(JSON.stringify({ direction: joy.GetDir(), speed: 0.5 }));
         }, 1000);
     </script>
 </html>

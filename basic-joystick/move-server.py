@@ -55,6 +55,11 @@ class DirectionMessageHandler:
             self.robot.stop()
 
 
+class PrintMessageHandler:
+    def handleMessage(self, message: Message):
+        print(message)
+
+
 async def main():
     robot = PiRobotWithSteeringMotor(23, 24, (17, 18), (27, 22))
     remoteController = WifiRemoteController(
