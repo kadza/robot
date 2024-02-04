@@ -2,7 +2,7 @@
 
 from asyncio import create_task, sleep, run
 from remote_controller import Message, WifiRemoteController
-from robot import Robot, PiRobotWithSteeringMotor
+from robot import PiRobot, Robot
 from dotenv import load_dotenv
 import os
 from websockets.server import serve
@@ -61,7 +61,7 @@ class PrintMessageHandler:
 
 
 async def main():
-    robot = PiRobotWithSteeringMotor(23, 24, (17, 18), (27, 22))
+    robot = PiRobot(23, 24, (17, 18), (27, 22))
     remoteController = WifiRemoteController(
         messageHandler=DirectionMessageHandler(robot), ipAddress=os.environ['SOCKET_SERVER_ADDRESS'], port=int(os.environ['SOCKET_SERVER_PORT']))
 
